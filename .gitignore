@@ -1,0 +1,6 @@
+.venv/
+target/
+logs/
+data/raw/
+*.p8
+member_metrics/.user.yml

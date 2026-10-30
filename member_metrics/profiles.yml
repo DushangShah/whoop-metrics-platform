@@ -1,0 +1,13 @@
+member_metrics:
+  target: dev
+  outputs:
+    dev:
+      type: snowflake
+      account: "{{ env_var('SNOWFLAKE_ACCOUNT') }}"
+      user: DBT_USER
+      private_key_path: "{{ env_var('SNOWFLAKE_PRIVATE_KEY_PATH') }}"
+      role: TRANSFORMER
+      database: WHOOP_METRICS
+      warehouse: DEV_WH
+      schema: DBT_DEV
+      threads: 4
