@@ -19,3 +19,9 @@
 - dbt build found 5 wellness rows with zeros on a 1 to 5 scale (all other tests passed)
 - Inspected the rows, decided zeros mean not answered, updated the staging model, added a blank-entry guard test, documented the decision
 - Learned: a failing test is information, so look at the rows before changing the test or the data
+
+## 2026-11-06
+- Wrote spark_jobs/zone_minutes.py (explicit schema, multiLine, FAILFAST) and flattened zone minutes to Parquet
+- Uploaded the Parquet to the stage and loaded RAW_ZONE_MINUTES: 2,178 rows, 16 participants, 0 load errors
+- Found my earlier missing-zone-key note was wrong (a truncated preview); corrected the docs
+- Learned: never infer a data rule from a truncated preview, and reconcile row counts after each load

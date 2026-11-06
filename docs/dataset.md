@@ -16,7 +16,7 @@ Raw files are NOT stored in this repo. They live outside git and are linked at d
 
 ## Observed formats and quirks
 - heart_rate.json: one JSON list. Each item has dateTime (no time zone shown) and value with bpm and confidence. Roughly every 5 seconds, with gaps. Meaning of confidence still to verify.
-- time_in_heart_rate_zones.json: one item per day, minutes per zone (IN_DEFAULT_ZONE_1 to 3, BELOW_DEFAULT_ZONE_1). Full days sum to about 1440. A zone key can be missing on some days (treat as 0). The first day can be partial.
+- time_in_heart_rate_zones.json: one item per day, minutes per zone (IN_DEFAULT_ZONE_1 to 3, BELOW_DEFAULT_ZONE_1). Daily totals are near but usually below 1440 (distribution checked 2026-11-06). The first day can be partial.
 - resting_heart_rate.json: some days hold placeholder rows with value 0.0 and a null date. Treat as missing.
 - sleep.json: nested JSON. startTime uses a space format, endTime uses ISO with T and .000. duration is in milliseconds. Stage counts and minutes sit under levels.summary. dateOfSleep is the wake-up date.
 - sleep_score.csv: timestamp ends in Z (UTC). Has sleep_log_entry_id, which looks like sleep.json logId (to verify before joining).
@@ -34,3 +34,6 @@ Raw files are NOT stored in this repo. They live outside git and are linked at d
   Decision: treat a zero on a 1 to 5 rating as "not answered" (NULL). Flag all-zero entries as is_blank_entry and also NULL readiness and sleep duration.
   This is our interpretation of the pattern, not a statement from the dataset authors.
   Guard: a test fails if blank entries exceed 1% of rows.
+
+## Corrections
+- 2026-11-06: An earlier note said a zone key can be missing on some days. That came from a truncated file preview. After loading all 2,178 daily rows from 16 participants (2019-11-01 to 2020-03-31), no row has a missing zone key. The Spark job still records any_zone_missing as a guard.
