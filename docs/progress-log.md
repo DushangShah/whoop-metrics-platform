@@ -14,3 +14,8 @@
 - Loaded RAW_SLEEP_SCORE (1,836 rows) and RAW_WELLNESS (1,747 rows) with COPY INTO, raw values kept as text, with source file and participant recorded
 - Checked: 16 participants in both tables, and row counts match the published dataset description
 - Learned: a stage is a loading dock, COPY INTO moves staged files into tables, METADATA$FILENAME records where each row came from, and every new Snowflake SQL file needs USE WAREHOUSE before querying tables
+
+## 2026-11-05
+- dbt build found 5 wellness rows with zeros on a 1 to 5 scale (all other tests passed)
+- Inspected the rows, decided zeros mean not answered, updated the staging model, added a blank-entry guard test, documented the decision
+- Learned: a failing test is information, so look at the rows before changing the test or the data

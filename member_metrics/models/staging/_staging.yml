@@ -1,0 +1,44 @@
+version: 2
+
+models:
+  - name: stg_pmdata__sleep_score
+    description: "Cleaned sleep scores. One row per participant per sleep log."
+    columns:
+      - name: sleep_score_key
+        description: "participant_id plus sleep_log_id. Must be unique."
+        data_tests:
+          - unique
+          - not_null
+      - name: participant_id
+        description: "Participant folder name, p01 to p16, taken from the file path."
+        data_tests:
+          - not_null
+      - name: sleep_log_id
+        description: "Fitbit sleep log ID. Matches logId in sleep.json (to verify before joining)."
+        data_tests:
+          - not_null
+      - name: score_timestamp_utc
+        description: "Timestamp of the score, UTC. NULL means the text did not parse."
+        data_tests:
+          - not_null
+      - name: overall_score
+        description: "Overall sleep score, expected 0 to 100."
+        data_tests:
+          - not_null
+
+  - name: stg_pmdata__wellness
+    description: "Cleaned self-reported wellness entries. One row per participant per entry."
+    columns:
+      - name: wellness_key
+        description: "participant_id plus the raw timestamp. Must be unique."
+        data_tests:
+          - unique
+          - not_null
+      - name: participant_id
+        description: "Participant folder name, p01 to p16, taken from the file path."
+        data_tests:
+          - not_null
+      - name: reported_at_utc
+        description: "When the entry was reported, UTC. NULL means the text did not parse."
+        data_tests:
+          - not_null

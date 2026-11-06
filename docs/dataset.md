@@ -27,3 +27,10 @@ Raw files are NOT stored in this repo. They live outside git and are linked at d
 - Join sleep tables on the log id, not on time.
 - Do not join heart rate to UTC tables by time until time zones are checked.
 - Small sample (16 people), so results illustrate the method, not general findings.
+
+## Decisions made from data checks
+- 2026-11-05: 5 of 1,747 wellness rows (0.3%) failed the rating range test. All were zeros on a 1 to 5 scale, none above the scale.
+  Three rows had one zero rating. Two rows (both p05) were entirely zeros.
+  Decision: treat a zero on a 1 to 5 rating as "not answered" (NULL). Flag all-zero entries as is_blank_entry and also NULL readiness and sleep duration.
+  This is our interpretation of the pattern, not a statement from the dataset authors.
+  Guard: a test fails if blank entries exceed 1% of rows.

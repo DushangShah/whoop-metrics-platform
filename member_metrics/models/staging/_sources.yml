@@ -1,0 +1,11 @@
+version: 2
+
+sources:
+  - name: raw
+    description: "Raw PMData tables loaded from the Snowflake stage. Values are kept as text."
+    schema: RAW
+    tables:
+      - name: raw_sleep_score
+        description: "One row per sleep score per night, from fitbit/sleep_score.csv."
+      - name: raw_wellness
+        description: "One row per self-reported wellness entry, from pmsys/wellness.csv."
