@@ -1,0 +1,25 @@
+version: 2
+
+models:
+  - name: stg_pmdata__zone_minutes
+    description: "Daily minutes in each heart rate zone. One row per participant per day."
+    columns:
+      - name: zone_day_key
+        description: "participant_id plus date. Must be unique."
+        data_tests:
+          - unique
+          - not_null
+      - name: participant_id
+        description: "Participant folder name, p01 to p16, taken from the file path."
+        data_tests:
+          - not_null
+      - name: zone_date
+        description: "Calendar day. NULL means the raw text did not parse as a date."
+        data_tests:
+          - not_null
+      - name: total_minutes
+        description: "Sum of the four zone minute columns for the day. At most 1440."
+        data_tests:
+          - not_null
+      - name: coverage_share
+        description: "total_minutes / 1440. Below 1 means the watch recorded less than a full day."

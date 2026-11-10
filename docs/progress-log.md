@@ -25,3 +25,7 @@
 - Uploaded the Parquet to the stage and loaded RAW_ZONE_MINUTES: 2,178 rows, 16 participants, 0 load errors
 - Found my earlier missing-zone-key note was wrong (a truncated preview); corrected the docs
 - Learned: never infer a data rule from a truncated preview, and reconcile row counts after each load
+
+## 2026-11-10
+- Added dbt source and staging model for zone minutes (real date, unique day key, coverage_share), with unique, not_null, range, add-up and date-window tests
+- Learned: median day covers about 95.5% of 1440 minutes and only 1 day is complete, so coverage must travel with any metric built on zone minutes

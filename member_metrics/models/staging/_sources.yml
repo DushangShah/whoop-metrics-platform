@@ -2,10 +2,12 @@ version: 2
 
 sources:
   - name: raw
-    description: "Raw PMData tables loaded from the Snowflake stage. Values are kept as text."
+    description: "Raw PMData tables loaded from the Snowflake stage."
     schema: RAW
     tables:
       - name: raw_sleep_score
-        description: "One row per sleep score per night, from fitbit/sleep_score.csv."
+        description: "One row per sleep score per night, from fitbit/sleep_score.csv. Values kept as text."
       - name: raw_wellness
-        description: "One row per self-reported wellness entry, from pmsys/wellness.csv."
+        description: "One row per self-reported wellness entry, from pmsys/wellness.csv. Values kept as text."
+      - name: raw_zone_minutes
+        description: "One row per participant per day, minutes in each heart rate zone. Produced by spark_jobs/zone_minutes.py from time_in_heart_rate_zones.json."
