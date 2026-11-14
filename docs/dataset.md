@@ -37,3 +37,9 @@ Raw files are NOT stored in this repo. They live outside git and are linked at d
 
 ## Corrections
 - 2026-11-06: An earlier note said a zone key can be missing on some days. That came from a truncated file preview. After loading all 2,178 daily rows from 16 participants (2019-11-01 to 2020-03-31), no row has a missing zone key. The Spark job still records any_zone_missing as a guard.
+
+## Resting heart rate coverage
+- 2026-11-14: Only 14 of 16 participants have a resting_heart_rate.json file. p12 and p13 have no such file in their fitbit folder (confirmed by listing the folders). The reason is not documented in the dataset page.
+- 145 of 1,803 rows are placeholders: heart rate 0 with a missing date. These two always occur together, with no exceptions.
+- File sizes differ a lot between participants (p04 is about 4 KB, most are 17 to 19 KB), so days per participant will vary.
+- 2026-11-14: p12 also has no lightly_active_minutes.json (the other participant folders checked so far have one). Not used yet.

@@ -1,18 +1,21 @@
 """Upload Spark's Parquet output to the Snowflake internal stage.
 
+Usage: python ingestion/upload_processed_to_stage.py zone_minutes resting_heart_rate
 Needs SNOWFLAKE_ACCOUNT and SNOWFLAKE_PRIVATE_KEY_PATH set in the environment.
-Safe to re-run: the stage folder is emptied first, so old part files never get loaded twice.
+Safe to re-run: each stage folder is emptied first, so old part files never get loaded twice.
 """
 import glob
 import os
+import sys
 
 import snowflake.connector
 
 PROCESSED_DIR = os.path.expanduser("~/local-data/processed")
-FOLDERS = ["zone_minutes"]  # each folder becomes @PMDATA_STAGE/<folder>/
 
 
-def main():
+def main(folders):
+    if not folders:
+        raise SystemExit("Name at least one folder, for example: resting_heart_rate")
     conn = snowflake.connector.connect(
         account=os.environ["SNOWFLAKE_ACCOUNT"],
         user="DBT_USER",
@@ -24,7 +27,7 @@ def main():
     )
     cur = conn.cursor()
     try:
-        for folder in FOLDERS:
+        for folder in folders:
             paths = sorted(glob.glob(os.path.join(PROCESSED_DIR, folder, "*.parquet")))
             if not paths:
                 raise SystemExit(f"No Parquet files in {folder}. Run the Spark job first.")
@@ -41,4 +44,4 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    main(sys.argv[1:])

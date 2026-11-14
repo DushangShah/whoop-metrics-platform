@@ -29,3 +29,8 @@
 ## 2026-11-10
 - Added dbt source and staging model for zone minutes (real date, unique day key, coverage_share), with unique, not_null, range, add-up and date-window tests
 - Learned: median day covers about 95.5% of 1440 minutes and only 1 day is complete, so coverage must travel with any metric built on zone minutes
+
+## 2026-11-14
+- Wrote spark_jobs/resting_heart_rate.py, made the upload script take folder names, loaded RAW_RESTING_HEART_RATE (1,803 rows, matched Spark's counts)
+- Found 145 placeholder rows: heart rate 0 and a missing date always occur together, no exceptions
+- Found p12 and p13 have no resting_heart_rate.json, so only 14 of 16 participants appear (reason not documented)
