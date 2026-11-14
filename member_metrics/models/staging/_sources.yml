@@ -11,3 +11,5 @@ sources:
         description: "One row per self-reported wellness entry, from pmsys/wellness.csv. Values kept as text."
       - name: raw_zone_minutes
         description: "One row per participant per day, minutes in each heart rate zone. Produced by spark_jobs/zone_minutes.py from time_in_heart_rate_zones.json."
+      - name: raw_resting_heart_rate
+        description: "One row per participant per day from resting_heart_rate.json, exactly as in the file (including 0.0 placeholders). Only 14 of 16 participants have this file."

@@ -1,0 +1,25 @@
+version: 2
+
+models:
+  - name: stg_pmdata__resting_heart_rate
+    description: "Daily resting heart rate. One row per participant per day. Only 14 of 16 participants have data."
+    columns:
+      - name: resting_hr_day_key
+        description: "participant_id plus date. Must be unique."
+        data_tests:
+          - unique
+          - not_null
+      - name: participant_id
+        description: "Participant folder name, taken from the file path."
+        data_tests:
+          - not_null
+      - name: reading_date
+        description: "Calendar day from the outer dateTime field. NULL means it did not parse."
+        data_tests:
+          - not_null
+      - name: is_placeholder
+        description: "True when the raw heart rate was 0, which means no reading."
+      - name: resting_hr_bpm
+        description: "Resting heart rate in beats per minute. NULL on placeholder days."
+      - name: error_raw
+        description: "Numeric error field from the file. Meaning not documented, so unused."

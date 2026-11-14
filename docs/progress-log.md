@@ -34,3 +34,8 @@
 - Wrote spark_jobs/resting_heart_rate.py, made the upload script take folder names, loaded RAW_RESTING_HEART_RATE (1,803 rows, matched Spark's counts)
 - Found 145 placeholder rows: heart rate 0 and a missing date always occur together, no exceptions
 - Found p12 and p13 have no resting_heart_rate.json, so only 14 of 16 participants appear (reason not documented)
+
+## 2026-11-14
+- Added dbt source and staging model for resting heart rate: placeholder zeros become NULL with an is_placeholder flag, both date fields parsed
+- Added range, placeholder-consistency, date-agreement and placeholder-share tests
+- Learned: a zero never comes with a date, so the flag is exact. The inner date format (MM/DD/YY) is tested, not assumed
