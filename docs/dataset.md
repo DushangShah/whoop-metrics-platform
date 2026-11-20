@@ -43,3 +43,10 @@ Raw files are NOT stored in this repo. They live outside git and are linked at d
 - 145 of 1,803 rows are placeholders: heart rate 0 with a missing date. These two always occur together, with no exceptions.
 - File sizes differ a lot between participants (p04 is about 4 KB, most are 17 to 19 KB), so days per participant will vary.
 - 2026-11-14: p12 also has no lightly_active_minutes.json (the other participant folders checked so far have one). Not used yet.
+
+## Sleep log follow-up (checked 2026-11-19)
+- Repeated logIds: in the 5 pairs inspected, the visible deep-stage count and minutes were identical and only thirtyDayAvgMinutes differed (one copy 0.0, the other a real-looking value). Agreement of all kept columns across all 61 differing pairs is enforced by a dbt test.
+- Time in bed minus (minutes asleep + minutes awake): stages records have a gap of 0 for 1,902 records and a gap of exactly 60 for 9 records, all on dateOfSleep 2020-03-29. Classic records have a gap of 0 for 131 of 153, other gaps for the rest (not yet examined).
+- 2020-03-29 is a date on which, as far as we know, European clocks moved forward. If times are local clock readings, a night spanning the change would show one extra hour in bed. Participant locations were not checked, so this is a likely explanation, not a confirmed one. A dbt test fails if the gap appears on any other date.
+- efficiency = 0 occurs on 2 stages records (p08 and p14, both on 2020-03-29 and both with a 60-minute gap). The raw value is kept. efficiency_pct is NULL where the raw value is 0. This is our interpretation: for example p08 was asleep 510 of 637 minutes in bed.
+- The staging model drops the 30-day-average columns and the summary text and keeps one copy per participant and logId.

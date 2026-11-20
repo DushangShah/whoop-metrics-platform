@@ -39,3 +39,8 @@
 - Added dbt source and staging model for resting heart rate: placeholder zeros become NULL with an is_placeholder flag, both date fields parsed
 - Added range, placeholder-consistency, date-agreement and placeholder-share tests
 - Learned: a zero never comes with a date, so the flag is exact. The inner date format (MM/DD/YY) is tested, not assumed
+
+## 2026-11-19
+- Inspected the repeated sleep logs and the time-in-bed gaps before modelling. Found the gap is exactly 60 minutes on one date only (2020-03-29) and the efficiency zeros fall on that same night
+- Added dbt source, staging model and tests for sleep logs (duplicates collapsed with a test proving the kept columns agree, a test for the clock-change gap, one main sleep per day)
+- Learned: let a test check a hypothesis about the data, so a wrong guess fails loudly

@@ -1,0 +1,31 @@
+version: 2
+
+models:
+  - name: stg_pmdata__sleep_logs
+    description: "Sleep records. One row per participant per logId, main sleeps and naps both included (see is_main_sleep)."
+    columns:
+      - name: sleep_log_key
+        description: "participant_id plus logId. Must be unique."
+        data_tests:
+          - unique
+          - not_null
+      - name: participant_id
+        description: "Participant folder name, taken from the file path."
+        data_tests:
+          - not_null
+      - name: sleep_date
+        description: "dateOfSleep from the file, the wake-up date. NULL means it did not parse."
+        data_tests:
+          - not_null
+      - name: is_main_sleep
+        description: "True for the main sleep of the day, false for naps."
+        data_tests:
+          - not_null
+      - name: time_in_bed_minutes
+        description: "timeInBed from the file, derived from local clock times."
+        data_tests:
+          - not_null
+      - name: time_in_bed_gap_minutes
+        description: "time in bed minus (minutes asleep + minutes awake). 0 for stages records except nights spanning a clock change."
+      - name: efficiency_pct
+        description: "Fitbit sleep efficiency. NULL where the raw value was 0, which we treat as not computed."
