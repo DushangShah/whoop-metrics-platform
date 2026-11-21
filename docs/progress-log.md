@@ -44,3 +44,8 @@
 - Inspected the repeated sleep logs and the time-in-bed gaps before modelling. Found the gap is exactly 60 minutes on one date only (2020-03-29) and the efficiency zeros fall on that same night
 - Added dbt source, staging model and tests for sleep logs (duplicates collapsed with a test proving the kept columns agree, a test for the clock-change gap, one main sleep per day)
 - Learned: let a test check a hypothesis about the data, so a wrong guess fails loudly
+
+## 2026-11-21
+- Inspected all 16 heart_rate.json files (21M readings) before writing the job: order, repeats, gaps, confidence, extreme values
+- Wrote spark_jobs/heart_rate.py (Parquet first, then checks on the written files) and loaded RAW_HEART_RATE with every reading kept
+- Learned: reconcile row counts against a published figure when one exists, and let tests check guesses about the data

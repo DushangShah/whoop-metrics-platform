@@ -50,3 +50,13 @@ Raw files are NOT stored in this repo. They live outside git and are linked at d
 - 2020-03-29 is a date on which, as far as we know, European clocks moved forward. If times are local clock readings, a night spanning the change would show one extra hour in bed. Participant locations were not checked, so this is a likely explanation, not a confirmed one. A dbt test fails if the gap appears on any other date.
 - efficiency = 0 occurs on 2 stages records (p08 and p14, both on 2020-03-29 and both with a 60-minute gap). The raw value is kept. efficiency_pct is NULL where the raw value is 0. This is our interpretation: for example p08 was asleep 510 of 637 minutes in bed.
 - The staging model drops the 30-day-average columns and the summary text and keeps one copy per participant and logId.
+
+## Heart rate findings (checked 2026-11-21 by reading all 16 heart_rate.json files)
+- 20,991,392 readings in total. This matches the 20,991,392 heart rate measurements reported for the 16-person version in the paper "Monitoring and Improving Personalized Sleep Quality from Long-Term Lifelogs" (arXiv 2211.12778).
+- Every record has dateTime ("YYYY-MM-DD HH:MM:SS", no time zone) and value with bpm (whole number) and confidence. All files read without errors.
+- bpm runs from 30 to 210 with a median of 68. No zeros, nothing below 30. 165 readings are above 200 (not removed, to be flagged).
+- Readings are in time order within every file. 5,898 repeated timestamps occur, all with the same bpm.
+- Gaps between consecutive readings: 54.9% exactly 5 s, 38.6% 6 to 15 s, 6.2% 1 to 4 s, 0.03% same second, 0.2% longer than a minute. The longest gap is 707 hours (about 29.5 days) for p13, after 2020-02-19 23:17:01.
+- Readings per participant range from 634,746 (p13) to 1,613,326 (p08). A perfect 5-second rhythm over the 152 study days would give about 2.6 million, so the fullest participant has about 61% and the thinnest about 24%.
+- confidence takes the values 0 to 3 (1.2%, 27.7%, 39.5% and 31.6% of readings). Mean bpm by level: 84.6, 83.4, 76.2, 59.7. The meaning of the levels is not documented, so it is kept and not used to filter.
+- Timestamp range: 2019-11-01 00:00:02 to 2020-03-31 23:59:58.
