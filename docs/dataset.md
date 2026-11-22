@@ -60,4 +60,4 @@ Raw files are NOT stored in this repo. They live outside git and are linked at d
 - Readings per participant range from 634,746 (p13) to 1,613,326 (p08). A perfect 5-second rhythm over the 152 study days would give about 2.6 million, so the fullest participant has about 61% and the thinnest about 24%.
 - confidence takes the values 0 to 3 (1.2%, 27.7%, 39.5% and 31.6% of readings). Mean bpm by level: 84.6, 83.4, 76.2, 59.7. The meaning of the levels is not documented, so it is kept and not used to filter.
 - Timestamp range: 2019-11-01 00:00:02 to 2020-03-31 23:59:58.
-- 2026-11-21 (Spark check on the written Parquet): the 5,898 repeated (participant, time) pairs are exact copies, repeated timestamps are exact copies and never differ in bpm or in confidence. 10 readings are exactly 30 bpm, the minimum.
+- 2026-11-21 (Spark check on the written Parquet): the 5,898 repeated (participant, time) pairs are exact copies. They never differ in bpm or in confidence. 10 readings are exactly 30 bpm, the minimum.
